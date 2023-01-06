@@ -12,5 +12,3 @@ import { GameMachine, GameModel } from './machine/GameMachine';
 // )
 
 const machine = interpret(GameMachine).start();
-console.log(machine.send(GameModel.events.join('1', '1')).changed);
-console.log(machine.send(GameModel.events.join('1', '1')).changed);
