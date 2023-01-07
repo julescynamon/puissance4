@@ -1,10 +1,11 @@
-import { createMachine } from 'xstate';
+import { createMachine, Interpreter, interpret } from 'xstate';
 import { createModel } from 'xstate/lib/model';
 import { Player, GridState } from '../types';
-import { canJoinGuard } from './Guards';
-import { joinGameAction } from './action';
+import { canJoinGuard, canLeaveGuard } from './Guards';
+import { joinGameAction, leaveGameAction, dropTokenAction } from './action';
+import { canDropGuard } from './guards';
 
-enum GameStates {
+export enum GameStates {
     LOBBY = 'LOBBY',
     PLAY = 'PLAY',
     VICTORY = 'VICTORY',
@@ -66,6 +67,8 @@ export const GameMachine = GameModel.createMachine({
                 },
             },
             leave: {
+                cond: canLeaveGuard,
+                actions: [GameModel.assign(leaveGameAction)],
                 target: GameStates.LOBBY,
             },
             chooseColor: {
@@ -78,7 +81,9 @@ export const GameMachine = GameModel.createMachine({
         [GameStates.PLAY]: {
             on: {
                 dropToken: {
+                    cond: canDropGuard,
                     target: GameStates.VICTORY,
+                    actions: [GameModel.assign(dropTokenAction)],
                 },
             },
         },
@@ -98,3 +103,17 @@ export const GameMachine = GameModel.createMachine({
         },
     },
 });
+
+export function makeGame(
+    state: GameStates = GameStates.LOBBY,
+    context: Partial<GameContext> = {}
+): InterpreterFrom<typeof GameMachine> {
+    const machine = interpret(
+        GameMachine.withContext({
+            ...GameModel.initialContext,
+            ...context,
+        })
+    ).start();
+    machine.state.value = state;
+    return machine;
+}
