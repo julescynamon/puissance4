@@ -1,12 +1,14 @@
 import { PlayerColor } from '../types';
-import { ColorSelector } from './screen/ColorSelector';
-import { Grid } from './screen/Grid';
-import { NameSelector } from './screen/NameSelector';
+import { ColorSelector } from './Components/ColorSelector';
+import { Grid } from './Components/Grid';
+import { NameSelector } from './Components/NameSelector';
+import { PlayScreen } from './Components/PlayScreen';
+import { VictoryScreen } from './Components/VictoryScreen';
 
 function App() {
     return (
         <div className="container">
-            <NameSelector disabled onSelect={() => null} />
+            <NameSelector onSelect={() => null} />
             <hr />
             <ColorSelector
                 onSelect={() => null}
@@ -25,8 +27,10 @@ function App() {
                 colors={[PlayerColor.RED, PlayerColor.YELLOW]}
             />
             <hr />
+            <PlayScreen color={PlayerColor.RED} />
+            <VictoryScreen color={PlayerColor.RED} name="john" />
             <Grid
-                onDrop={console.log}
+                onDrop={() => null}
                 color={PlayerColor.RED}
                 grid={[
                     ['E', 'E', 'E', 'E', 'E', 'E', 'R'],

@@ -7,9 +7,62 @@ html, body {
 
 }
 
+label {
+	font: inherit;
+	margin-right: .5rem;
+}
+
+input {
+	font: inherit;
+	padding: .5rem 1rem;
+	border-radius: 5px;
+	line-height: 1;
+	border: 1px solid darkgray;
+}
+
+input:disabled {
+	opacity: .4;
+}
+
+.alert {
+	padding: 1rem 0.75rem;
+	display: flex;
+	justify-content: space-between;
+	color: #c01e1e;
+	background-color: #f8d7da;
+	border: 1px solid #f5c6cb;
+	border-radius: 5px;
+	margin-bottom: 1rem;
+}
+
+.alert__close{
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.flex {
+	display: flex;
+	align-items: center;
+}
+
 .container {
 	max-width: 600px;
 	margin: 0 auto;
+}
+
+.button {
+	background-color: #2a5782;
+	font: inherit;
+	padding: .5rem 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	color: #f5f5f5;
+}
+
+.button:hover {
+	background-color: #3876af;
 }
 
 .players {
