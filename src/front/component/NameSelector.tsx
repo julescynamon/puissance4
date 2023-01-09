@@ -7,7 +7,6 @@ type NameSelectorProps = {
 
 export function NameSelector({ onSelect, disabled }: NameSelectorProps) {
     const [error, setError] = useState('');
-
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         const name = new FormData(e.currentTarget as HTMLFormElement).get(
@@ -22,9 +21,9 @@ export function NameSelector({ onSelect, disabled }: NameSelectorProps) {
 
     return (
         <>
-            <h1>Sélectionnez un Pseudo</h1>
+            <h1>Sélectionner un pseudo</h1>
             {error && (
-                <div className="alert">
+                <div className="alert" style={{ marginBottom: '1rem' }}>
                     {error}
                     <button
                         onClick={() => setError('')}
@@ -34,10 +33,22 @@ export function NameSelector({ onSelect, disabled }: NameSelectorProps) {
                     </button>
                 </div>
             )}
-            <form action="" onSubmit={handleSubmit}>
+            <form
+                className="flex"
+                style={{ gap: '.5rem', marginBottom: '1rem' }}
+                action="src/front/component/NameSelector"
+                onSubmit={handleSubmit}
+            >
                 <label htmlFor="name">Votre pseudo</label>
-                <input type="text" id="name" name="name" required />
-                <button className="button" style={{ marginLeft: '.5rem' }}>
+                <input
+                    disabled={disabled}
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                />
+
+                <button className="button" disabled={disabled}>
                     Choisir
                 </button>
             </form>

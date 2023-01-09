@@ -6,14 +6,16 @@ import {
   canDropGuard,
   canJoinGuard,
   canLeaveGuard,
-  canStartGameGuard, isDrawMoveGuard,
+  canStartGameGuard,
+  isDrawMoveGuard,
   isWiningMoveGuard
 } from './guards'
 import {
   chooseColorAction,
   dropTokenAction,
   joinGameAction,
-  leaveGameAction, restartAction,
+  leaveGameAction,
+  restartAction,
   saveWiningPositionsActions,
   setCurrentPlayerAction,
   switchPlayerAction
@@ -45,8 +47,20 @@ export const GameModel = createModel({
 
 export const GameMachine = GameModel.createMachine({
   id: 'game',
-  context: GameModel.initialContext,
-  initial: GameStates.LOBBY,
+  context: {
+    ...GameModel.initialContext,
+    players: [{
+      id: 'John',
+      name: 'John',
+      color: PlayerColor.YELLOW
+    }, {
+      id: 'Marc',
+      name: 'Marc',
+      color: PlayerColor.RED
+    }],
+    currentPlayer: 'John'
+  },
+  initial: GameStates.PLAY,
   states: {
     [GameStates.LOBBY]: {
       on: {
@@ -118,7 +132,6 @@ export const GameMachine = GameModel.createMachine({
   }
 })
 
-
 export function makeGame (state: GameStates = GameStates.LOBBY, context: Partial<GameContext> = {}): InterpreterFrom<typeof GameMachine> {
   const machine = interpret(
     GameMachine.withContext({
@@ -126,6 +139,7 @@ export function makeGame (state: GameStates = GameStates.LOBBY, context: Partial
       ...context
     })
   ).start()
+  GameMachine
   machine.state.value = state
   return machine
 }
