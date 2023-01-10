@@ -13,6 +13,7 @@
 		"test": "vitest"
 	},
 	"dependencies": {
+		"@fastify/static": "^6.6.0",
 		"@xstate/react": "^3.0.1",
 		"fastify": "^4.11.0",
 		"react": "^18.2.0",
