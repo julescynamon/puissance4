@@ -1,12 +1,12 @@
-import { generateKeyPairSync } from 'crypto'
-import { writeFileSync } from 'fs'
+import { generateKeyPairSync } from 'crypto';
+import { writeFileSync } from 'fs';
 
-const {privateKey} = generateKeyPairSync("rsa", {
-  modulusLength: 2048,
-  privateKeyEncoding: {
-    type: "pkcs1",
-    format: "pem"
-  }
-})
+const { privateKey } = generateKeyPairSync('rsa', {
+    modulusLength: 2048,
+    privateKeyEncoding: {
+        type: 'pkcs1',
+        format: 'pem',
+    },
+});
 
-writeFileSync("privatekey.pem", privateKey)
+writeFileSync('privatekey.pem', privateKey);
