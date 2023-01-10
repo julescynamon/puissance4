@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# on ignore le fichier de ma clef privée
+privatekey.pem
